@@ -33,11 +33,15 @@ public class InstantSerializer extends InstantSerializerBase<Instant>
     private static final long serialVersionUID = 1L;
 
     public static final InstantSerializer INSTANCE = new InstantSerializer();
-
-    protected InstantSerializer() {
+    
+    public InstantSerializer(DateTimeFormatter formatter) {
         super(Instant.class, Instant::toEpochMilli, Instant::getEpochSecond, Instant::getNano,
-                // null -> use 'value.toString()', default format
-                null);
+                formatter);
+    }
+    
+    protected InstantSerializer() {
+        // null -> use 'value.toString()', default format
+        this(null)
     }
 
     protected InstantSerializer(InstantSerializer base,
